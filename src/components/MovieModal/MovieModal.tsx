@@ -1,19 +1,34 @@
-import axios from "axios";
 import { Movie } from "../../types/movie";
+import styles from "../MovieModal.module.css";
 
-const API_URL = "https://api.themoviedb.org/3/search/movie";
-const API_KEY = import.meta.env.VITE_TMDB_TOKEN;
-
-export async function fetchMovies(query: string): Promise<Movie[]> {
-    try {
-        const response = await axios.get(API_URL, {
-            params: { query, api_key: API_KEY },
-        });
-        return response.data.results;
-    } catch (error) {
-        console.error("Error fetching movies:", error);
-        return [];
-    }
+interface MovieModalProps {
+    movie: Movie | null;
+    onClose: () => void;
 }
 
-export default MovieModal;
+const MovieModal: React.FC<MovieModalProps> = ({ movie, onClose }) => {
+    if (!movie) return null;
+
+    return (
+        <div className={styles.backdrop} role="dialog" aria-modal="true" onClick={onClose}>
+            <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+                <button className={styles.closeButton} aria-label="Close modal" onClick={onClose}>
+                    &times;
+                </button>
+                <img
+                    src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+                    alt={movie.title}
+                    className={styles.image}
+                />
+                <div className={styles.content}>
+                    <h2>{movie.title}</h2>
+                    <p>{movie.overview}</p>
+                    <p><strong>Release Date:</strong> {movie.release_date}</p>
+                    <p><strong>Rating:</strong> {movie.vote_average}/10</p>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default MovieModal; // ✅ Експортуємо компонент!
