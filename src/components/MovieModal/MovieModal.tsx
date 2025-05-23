@@ -15,3 +15,5 @@ export async function fetchMovies(query: string): Promise<Movie[]> {
         return [];
     }
 }
+
+export default MovieModal;
