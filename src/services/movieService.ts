@@ -32,3 +32,10 @@ export const fetchMovies = async (query: string): Promise<Movie[]> => {
         throw new Error('Failed to fetch movies');
     }
 };
+
+// const apiKey = process.env.REACT_APP_API_KEY;
+// fetch(`https://api.themoviedb.org/3/search/movie?query=batman&api_key=${apiKey}`)
+//     .then(response => response.json())
+//     .then(data => console.log(data));
+
+// console.log(process.env.REACT_APP_API_KEY);
