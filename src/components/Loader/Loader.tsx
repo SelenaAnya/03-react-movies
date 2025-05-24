@@ -1,10 +1,10 @@
 // src/components/Loader/Loader.tsx
 import React from 'react';
-import css from './Loader.module.css';
+import style from './Loader.module.css';
 
 const Loader: React.FC = () => {
     return (
-        <p className={css.text}>Loading movies, please wait...</p>
+        <p className={style.text}>Loading movies, please wait...</p>
     );
 };
 

@@ -1,6 +1,7 @@
 // src/services/movieService.ts
-import axios, { AxiosResponse } from 'axios';
-import { Movie } from '../types/movie';
+import axios from 'axios';
+import type { AxiosResponse } from 'axios';
+import type { Movie } from '../types/movie';
 
 interface ApiResponse {
     results: Movie[];
