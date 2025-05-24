@@ -9,7 +9,7 @@ interface ApiResponse {
     total_pages: number;
 }
 
-const BASE_URL = 'https://api.themoviedb.org/3/authentication';
+const BASE_URL = 'https://api.themoviedb.org/3/search/movie';
 const token = import.meta.env.VITE_TMDB_TOKEN;
 
 export const fetchMovies = async (query: string): Promise<Movie[]> => {
