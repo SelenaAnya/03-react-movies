@@ -1,6 +1,7 @@
-import React from "react";
-import { Movie } from "../../types/movie";
-import styles from "./MovieGrid.module.css";
+// src/components/MovieGrid/MovieGrid.tsx
+import React from 'react';
+import type { Movie } from '../../types/movie';
+import css from './MovieGrid.module.css';
 
 interface MovieGridProps {
     movies: Movie[];
@@ -10,23 +11,26 @@ interface MovieGridProps {
 const MovieGrid: React.FC<MovieGridProps> = ({ movies, onSelect }) => {
     const handleCardClick = (movie: Movie) => {
         onSelect(movie);
-    }
+    };
 
     return (
-        <ul className={styles.grid}>
+        <ul className={css.grid}>
             {movies.map((movie) => (
                 <li key={movie.id}>
                     <div
-                        className={styles.card}
+                        className={css.card}
                         onClick={() => handleCardClick(movie)}
                     >
                         <img
-                            className={styles.image}
-                            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                            className={css.image}
+                            src={movie.poster_path
+                                ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                                : '/placeholder-image.jpg'
+                            }
                             alt={movie.title}
                             loading="lazy"
                         />
-                        <h2 className={styles.title}>{movie.title}</h2>
+                        <h2 className={css.title}>{movie.title}</h2>
                     </div>
                 </li>
             ))}
