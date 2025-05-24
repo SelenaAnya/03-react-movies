@@ -35,16 +35,16 @@
 
 import axios from 'axios';
 
-const fetchMovies = async () => {
-    try {
-        const apiKey = meta.env.REACT_APP_API_KEY;
-        const response = await axios.get(`https://api.themoviedb.org/3/search/movie`, {
-            params: { query: 'batman', api_key: apiKey }
-        });
-        console.log(response.data);
-    } catch (error) {
-        console.error('Error fetching movies:', error);
+const url = 'https://api.themoviedb.org/3/search/movie?query=batman&include_adult=false&language=en-US&page=1';
+const options = {
+    method: 'GET',
+    headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MjJhNzBmMTEyM2IyMDhmY2FjYTZlZGFkNGNjNWFlYyIsIm5iZiI6MTc0NDUzNDAzMC42OTI5OTk4LCJzdWIiOiI2N2ZiN2EwZTMxMTBiZDgyZGZhY2U2MzYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.uSclX3vVunuHCxPY_dCMDxSrbIn3f3rqe8wvnSL5wms'
     }
 };
 
-console.log('API Key:', meta.env.REACT_APP_API_KEY);
+axios(url, options)
+    .then(res => res.json())
+    .then(json => console.log(json))
+    .catch(err => console.error(err));
