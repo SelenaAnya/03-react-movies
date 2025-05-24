@@ -1,18 +1,53 @@
+import React, { useEffect } from "react";
 import { Movie } from "../../types/movie";
 import styles from "../MovieModal.module.css";
 
 interface MovieModalProps {
-    movie: Movie | null;
+    movie: Movie;
     onClose: () => void;
 }
 
 const MovieModal: React.FC<MovieModalProps> = ({ movie, onClose }) => {
-    if (!movie) return null;
+    useEffect(() => {
+        const handleEscape = (e: KeyboardEvent) => {
+            if (e.key === "Escape") {
+                onClose();
+            }
+        };
+        document.body.style.overflow = "hidden";
+
+        document.addEventListener("keydown", handleEscape);
+
+        return () => {
+            document.body.style.overflow = "unset";
+            document.removeEventListener("keydown", handleEscape);
+        };
+    })
+
+    const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (e.target === e.currentTarget) {
+            onClose();
+        }
+    };
+
+    const handleCloseButtonClick = () => {
+        onClose();
+    };
+
 
     return (
-        <div className={styles.backdrop} role="dialog" aria-modal="true" onClick={onClose}>
-            <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-                <button className={styles.closeButton} aria-label="Close modal" onClick={onClose}>
+        <div
+            className={styles.backdrop}
+            role="dialog"
+            aria-modal="true"
+            onClick={handleBackdropClick}
+        >
+            <div className={styles.modal}>
+                <button
+                    className={styles.closeButton}
+                    aria-label="Close modal"
+                    onClick={handleCloseButtonClick}
+                >
                     &times;
                 </button>
                 <img
@@ -23,12 +58,16 @@ const MovieModal: React.FC<MovieModalProps> = ({ movie, onClose }) => {
                 <div className={styles.content}>
                     <h2>{movie.title}</h2>
                     <p>{movie.overview}</p>
-                    <p><strong>Release Date:</strong> {movie.release_date}</p>
-                    <p><strong>Rating:</strong> {movie.vote_average}/10</p>
+                    <p>
+                        <strong>Release Date:</strong> {movie.release_date}
+                    </p>
+                    <p>
+                        <strong>Rating:</strong> {movie.vote_average}/10
+                    </p>
                 </div>
             </div>
         </div>
     );
 };
 
-export default MovieModal; // ✅ Експортуємо компонент!
+export default MovieModal;
