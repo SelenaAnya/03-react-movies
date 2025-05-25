@@ -9,8 +9,11 @@ interface ApiResponse {
     total_pages: number;
 }
 
+// Базовий URL для TMDB API
 const BASE_URL = 'https://api.themoviedb.org/3';
-const token = import.meta.env.VITE_TMDB_TOKEN;
+
+// Bearer token для авторизації (використайте ваш реальний токен)
+const BEARER_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MjJhNzBmMTEyM2IyMDhmY2FjYTZlZGFkNGNjNWFlYyIsIm5iZiI6MTc0NDUzNDAzMC42OTI5OTk4LCJzdWIiOiI2N2ZiN2EwZTMxMTBiZDgyZGZhY2U2MzYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.uSclX3vVunuHCxPY_dCMDxSrbIn3f3rqe8wvnSL5wms';
 
 export const fetchMovies = async (query: string): Promise<Movie[]> => {
     try {
@@ -19,9 +22,13 @@ export const fetchMovies = async (query: string): Promise<Movie[]> => {
             {
                 params: {
                     query,
+                    include_adult: false,
+                    language: 'en-US',
+                    page: 1
                 },
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    accept: 'application/json',
+                    Authorization: `Bearer ${BEARER_TOKEN}`,
                 },
             }
         );
@@ -33,18 +40,31 @@ export const fetchMovies = async (query: string): Promise<Movie[]> => {
     }
 };
 
-// import axios from 'axios';
+// // Альтернативна функція з використанням API ключа (якщо маєте)
+// export const fetchMoviesWithApiKey = async (query: string): Promise<Movie[]> => {
+//     const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
+    
+//     if (!API_KEY) {
+//         throw new Error('API key is not configured');
+//     }
 
-// const url = 'https://api.themoviedb.org/3/search/movie?query=batman&include_adult=false&language=en-US&page=1';
-// const options = {
-//     method: 'GET',
-//     headers: {
-//         accept: 'application/json',
-//         Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MjJhNzBmMTEyM2IyMDhmY2FjYTZlZGFkNGNjNWFlYyIsIm5iZiI6MTc0NDUzNDAzMC42OTI5OTk4LCJzdWIiOiI2N2ZiN2EwZTMxMTBiZDgyZGZhY2U2MzYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.uSclX3vVunuHCxPY_dCMDxSrbIn3f3rqe8wvnSL5wms'
+//     try {
+//         const response: AxiosResponse<ApiResponse> = await axios.get(
+//             `${BASE_URL}/search/movie`,
+//             {
+//                 params: {
+//                     api_key: API_KEY,
+//                     query,
+//                     include_adult: false,
+//                     language: 'en-US',
+//                     page: 1
+//                 }
+//             }
+//         );
+
+//         return response.data.results;
+//     } catch (error) {
+//         console.error('Error fetching movies:', error);
+//         throw new Error('Failed to fetch movies');
 //     }
 // };
-
-// axios(url, options)
-//     .then(res => res.json())
-//     .then(json => console.log(json))
-//     .catch(err => console.error(err));
