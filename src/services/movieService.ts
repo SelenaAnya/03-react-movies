@@ -43,21 +43,25 @@
 //     }
 // };
 
+// movieService.ts
 import axios from "axios";
 
-const API_URL = "https://api.themoviedb.org/3";
-
 const axiosInstance = axios.create({
-  baseURL: API_URL,
+  baseURL: "https://api.themoviedb.org/3",
   headers: {
-    Authorization: `Bearer ${process.env.REACT_APP_TMDB_API_KEY}`,
+    Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
     "Content-Type": "application/json;charset=utf-8",
   },
 });
 
 export const searchMovies = async (query: string) => {
-  const response = await axiosInstance.get("/search/movie", {
-    params: { query },
-  });
-  return response.data;
+  try {
+    const response = await axiosInstance.get("/search/movie", {
+      params: { query },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+    throw error;
+  }
 };
