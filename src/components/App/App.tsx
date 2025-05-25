@@ -10,6 +10,7 @@ import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import MovieModal from "../MovieModal/MovieModal";
 import styles from "./App.module.css";
 
+console.log(import.meta.env.VITE_TMDB_API_KEY);
 const App: React.FC = () => {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [loading, setLoading] = useState<boolean>(false);

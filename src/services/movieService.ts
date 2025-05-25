@@ -12,7 +12,7 @@ interface ApiResponse {
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 export const fetchMoviesWithApiKey = async (query: string): Promise<Movie[]> => {
-    const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
+    const API_KEY = import.meta.env.REACT_APP_TMDB_API_KEY;
 
     if (!API_KEY) {
         throw new Error('API key is not configured');
