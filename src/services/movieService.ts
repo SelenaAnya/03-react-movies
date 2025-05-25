@@ -80,9 +80,7 @@ interface ApiResponse {
 }
 
 const BASE_URL = 'https://api.themoviedb.org/3';
-
-// Bearer token для авторизації (використайте ваш реальний токен)
-const BEARER_TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MjJhNzBmMTEyM2IyMDhmY2FjYTZlZGFkNGNjNWFlYyIsIm5iZiI6MTc0NDUzNDAzMC42OTI5OTk4LCJzdWIiOiI2N2ZiN2EwZTMxMTBiZDgyZGZhY2U2MzYiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.uSclX3vVunuHCxPY_dCMDxSrbIn3f3rqe8wvnSL5wms';
+const BEARER_TOKEN = import.meta.env.VITE_TMDB_API_KEY;
 
 export const fetchMovies = async (query: string): Promise<Movie[]> => {
     try {
