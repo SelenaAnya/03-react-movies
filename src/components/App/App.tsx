@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import toast from "react-hot-toast";
 import type { Movie } from '../../types/movie';
-// import { fetchMoviesWithApiKey } from "../../services/movieService";
 import { fetchMovies } from "../../services/movieService";
 import SearchBar from "../SearchBar/SearchBar";
 import MovieGrid from "../MovieGrid/MovieGrid";
@@ -24,7 +23,6 @@ const App: React.FC = () => {
             setError(false);
             setMovies([]);
 
-            // const result = await fetchMoviesWithApiKey(query);
             const result = await fetchMovies(query);
 
             if (result.length === 0) {
