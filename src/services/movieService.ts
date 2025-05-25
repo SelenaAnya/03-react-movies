@@ -12,8 +12,8 @@ interface ApiResponse {
 export const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
 export const BASE_URL = 'https://api.themoviedb.org/3';
 
-import dotenv from 'dotenv';
-dotenv.config();
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 export const fetchMovies = async (query: string): Promise<Movie[]> => {
     const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
