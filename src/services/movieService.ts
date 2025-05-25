@@ -9,11 +9,7 @@ interface ApiResponse {
     total_pages: number;
 }
 
-export const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
-export const BASE_URL = 'https://api.themoviedb.org/3';
-
-// import dotenv from 'dotenv';
-// dotenv.config();
+const BASE_URL = 'https://api.themoviedb.org/3';
 
 export const fetchMoviesWithApiKey = async (query: string): Promise<Movie[]> => {
     const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
@@ -22,13 +18,17 @@ export const fetchMoviesWithApiKey = async (query: string): Promise<Movie[]> => 
         throw new Error('API key is not configured');
     }
 
+    if (!query || query.trim() === '') {
+        throw new Error('Search query is required');
+    }
+
     try {
         const response: AxiosResponse<ApiResponse> = await axios.get(
             `${BASE_URL}/search/movie`,
             {
                 params: {
                     api_key: API_KEY,
-                    query,
+                    query: query.trim(),
                     include_adult: false,
                     language: 'en-US',
                     page: 1
@@ -36,9 +36,9 @@ export const fetchMoviesWithApiKey = async (query: string): Promise<Movie[]> => 
             }
         );
 
-        return response.data.results;
+        return response.data.results || [];
     } catch (error) {
         console.error('Error fetching movies:', error);
-        throw new Error('Failed to fetch movies');
+        throw new Error('Failed to fetch movies. Please try again.');
     }
 };
