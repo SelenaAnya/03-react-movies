@@ -6,6 +6,8 @@ interface SearchBarProps {
     onSubmit: (query: string) => void; // Define the type for onSubmit
 }
 
+
+
 const SearchBar: React.FC<SearchBarProps> = ({ onSubmit }) => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
